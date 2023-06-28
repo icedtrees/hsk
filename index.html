@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    #card {
+        margin: 100px; border-color: black; border-style: solid; border-width: 2px; width: 300px; height: 300px; display: flex; align-items: center; justify-content: center;
+        flex-direction: column;
+        gap: 5px;
+    }
+    #character {
+        font-size: 50px;
+    }
+    #pinyin, #translation {
+       font-size: 20px;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body onload="
+  const wordList = `
+      \u{6211} 	w\u{1D2} 	I, me
+      \u{6211}\u{4EEC} 	w\u{1D2}men 	we, us (pl.)
+      \u{4F60} 	n\u{1D0} 	you
+      \u{4F60}\u{4EEC} 	n\u{1D0}men 	you (pl.)
+      \u{4ED6} 	t\u{101} 	he, him
+      \u{5979} 	t\u{101} 	she, her
+      \u{4ED6}\u{4EEC} 	t\u{101}men 	they (male+female / male, pl.)
+\u{5979}\u{4EEC} 	t\u{101}men 	they (females, pl.)
+\u{8FD9} (\u{8FD9}\u{513F}) 	zh\u{E8} ( zh\u{E8}r) 	here, this
+\u{90A3} (\u{90A3}\u{513F}) 	n\u{E0} (n\u{E0}r) 	there, that
+\u{54EA}\u{FF08}\u{54EA}\u{513F}\u{FF09} 	n\u{1CE} (n\u{1CE}r) 	where
+\u{8C01} 	shu\u{ED} 	who
+\u{4EC0}\u{4E48} 	sh\u{E9}n me 	what, why
+\u{591A}\u{5C11} 	du\u{14D}sh\u{1CE}o 	how many, how much
+\u{51E0} 	j\u{1D0} 	a few, how many
+\u{600E}\u{4E48} 	z\u{11B}nme 	how
+\u{600E}\u{4E48}\u{6837} 	z\u{11B}nmey\u{E0}ng 	how about
+\u{4E00} 	y\u{12B} 	one
+\u{4E8C} 	\u{E8}r 	two
+\u{4E09} 	s\u{101}n 	three
+\u{56DB} 	s\u{EC} 	four
+\u{4E94} 	w\u{1D4} 	five
+\u{516D} 	li\u{F9} 	six
+\u{4E03} 	q\u{12B} 	seven
+\u{516B} 	b\u{101} 	eight
+\u{4E5D} 	ji\u{1D4} 	nine
+\u{5341} 	sh\u{ED} 	ten
+\u{96F6} 	l\u{ED}ng 	zero
+\u{4E2A} 	g\u{E8} 	one, a, an
+\u{5C81} 	su\u{EC} 	year
+\u{672C} 	b\u{11B}n 	volume
+\u{4E9B} 	xi\u{113} 	some
+\u{5757} 	ku\u{E0}i 	piece
+\u{4E0D} 	b\u{F9} 	no
+\u{6CA1} 	m\u{E9}i 	no
+\u{5F88} 	h\u{11B}n 	quite, very
+\u{592A} 	t\u{E0}i 	too
+\u{90FD} 	d\u{14D}u 	all
+\u{548C} 	h\u{E9} 	and
+\u{5728} 	z\u{E0}i 	in, at
+\u{7684} 	de
+\u{4E86} 	le
+\u{5417} 	ma
+\u{5462} 	ne
+\u{5582} 	w\u{E8}i 	hello
+Noun
+\u{5BB6} 	ji\u{101} 	home
+\u{5B66}\u{6821} 	xu\u{E9}xi\u{E0}o 	school
+\u{996D}\u{5E97} 	f\u{E0}ndi\u{E0}n 	restaurant
+\u{5546}\u{5E97} 	sh\u{101}ngdi\u{E0}n 	store
+\u{533B}\u{9662} 	y\u{12B}yu\u{E0}n 	hospital
+\u{706B}\u{8F66}\u{7AD9} 	hu\u{1D2}ch\u{113}zh\u{E0}n 	train station
+\u{4E2D}\u{56FD} 	zh\u{14D}ng gu\u{F3} 	China
+\u{5317}\u{4EAC} 	b\u{11B}ij\u{12B}ng 	Beijing
+\u{4E0A} 	sh\u{E0}ng 	up
+\u{4E0B} 	xi\u{E0} 	down
+\u{524D}\u{9762} 	qi\u{E1}nmi\u{E0}n 	front
+\u{540E}\u{9762} 	h\u{F2}umi\u{E0}n 	behind
+\u{91CC} 	l\u{1D0}mi\u{E0}n 	inside
+\u{4ECA}\u{5929} 	j\u{12B}nti\u{101}n 	today
+\u{660E}\u{5929} 	m\u{ED}ngti\u{101}n 	tomorrow
+\u{6628}\u{5929} 	zu\u{F3}ti\u{101}n 	yesterday
+\u{4E0A}\u{5348} 	sh\u{E0}ngw\u{1D4} 	morning
+\u{4E2D}\u{5348} 	zh\u{14D}ngw\u{1D4} 	noon
+\u{4E0B}\u{5348} 	xi\u{E0}w\u{1D4} 	afternoon
+\u{5E74} 	ni\u{E1}n 	year
+\u{6708} 	yu\u{E8} 	month
+\u{65E5} 	r\u{EC} 	day
+\u{661F}\u{671F} 	x\u{12B}ngq\u{12B} 	week
+\u{70B9} 	di\u{1CE}n 	dot, spot
+\u{5206}\u{949F} 	f\u{113}nzh\u{14D}ng 	minute
+\u{73B0}\u{5728} 	xi\u{E0}nz\u{E0}i 	now
+\u{65F6}\u{5019} 	sh\u{ED}hou 	time
+\u{7238}\u{7238} 	b\u{E0}ba 	father
+\u{5988}\u{5988} 	m\u{101}ma 	mother
+\u{513F}\u{5B50} 	\u{E9}rzi 	son
+\u{5973}\u{513F} 	n\u{1DA}\u{E9}r 	daughter
+\u{8001}\u{5E08} 	l\u{1CE}osh\u{12B} 	teacher
+\u{5B66}\u{751F} 	xu\u{E9}sh\u{113}ng 	student
+\u{540C}\u{5B66} 	t\u{F3}ngxu\u{E9} 	shoolmate
+\u{670B}\u{53CB} 	p\u{E9}ngyou 	friend
+\u{533B}\u{751F} 	y\u{12B}sh\u{113}ng 	doctor
+\u{5148}\u{751F} 	xi\u{101}nsheng 	sir
+\u{5C0F}\u{59D0} 	xi\u{1CE}oji\u{11B} 	Miss
+\u{8863}\u{670D} 	y\u{12B}fu 	cloth
+\u{6C34} 	shu\u{1D0} 	water
+\u{83DC} 	c\u{E0}i 	vegetable
+\u{7C73}\u{996D} 	m\u{1D0}f\u{E0}n 	rice
+\u{6C34}\u{679C} 	shu\u{1D0}gu\u{1D2} 	fruit
+\u{82F9}\u{679C} 	p\u{ED}nggu\u{1D2} 	apple
+\u{8336} 	ch\u{E1} 	tea
+\u{676F}\u{5B50} 	b\u{113}izi 	cup
+\u{94B1} 	qi\u{E1}n 	money
+\u{98DE}\u{673A} 	f\u{113}ij\u{12B} 	airplane
+\u{51FA}\u{79DF}\u{8F66} 	ch\u{16B}z\u{16B}ch\u{113} 	taxi
+\u{7535}\u{89C6} 	di\u{E0}nsh\u{EC} 	television
+\u{7535}\u{8111} 	di\u{E0}nn\u{1CE}o 	computer
+\u{7535}\u{5F71} 	di\u{E0}ny\u{1D0}ng 	movie
+\u{5929}\u{6C14} 	ti\u{101}nq\u{EC} 	weather
+\u{732B} 	m\u{101}o 	cat
+\u{72D7} 	g\u{1D2}u 	dog
+\u{4E1C}\u{897F} 	d\u{14D}ngxi 	thing
+\u{4EBA} 	r\u{E9}n 	person
+\u{540D}\u{5B57} 	m\u{ED}ngzi 	name
+\u{4E66} 	sh\u{16B} 	book
+\u{6C49}\u{8BED} 	h\u{E0}ny\u{1D4} 	mandarin Chinese
+\u{5B57} 	z\u{EC} 	character
+\u{684C}\u{5B50} 	zhu\u{14D}zi 	desk
+\u{6905}\u{5B50} 	y\u{1D0}zi 	chair
+Verb
+\u{8C22}\u{8C22} 	xi\u{E8}xie 	thank
+\u{4E0D}\u{5BA2}\u{6C14} 	b\u{FA}k\u{E8}q\u{EC} 	you are welcome
+\u{518D}\u{89C1} 	z\u{E0}iji\u{E0}n 	good-bye
+\u{8BF7} 	q\u{1D0}ng 	please
+\u{5BF9}\u{4E0D}\u{8D77} 	du\u{EC}b\u{F9}q\u{1D0} 	sorry
+\u{6CA1}\u{5173}\u{7CFB} 	m\u{E9}igu\u{101}nx\u{EC} 	It doesn\u{2019}t matter
+\u{662F} 	sh\u{EC} 	be (am, is, are)
+\u{6709} 	y\u{1D2}u 	have
+\u{770B} 	k\u{E0}n 	look
+\u{542C} 	t\u{12B}ng 	listen
+\u{8BF4}\u{8BDD} 	shu\u{14D}hu\u{E0} 	speak
+\u{8BFB} 	d\u{FA} 	read
+\u{5199} 	xi\u{11B} 	write
+\u{770B}\u{89C1} 	k\u{E0}nji\u{E0}n 	see
+\u{53EB} 	ji\u{E0}o 	call
+\u{6765} 	l\u{E1}i 	come
+\u{56DE} 	hu\u{ED} 	return
+\u{53BB} 	q\u{F9} 	go
+\u{5403} 	ch\u{12B} 	eat
+\u{559D} 	h\u{113} 	drink
+\u{7761}\u{89C9} 	shu\u{EC}ji\u{E0}o 	sleep
+\u{6253}\u{7535}\u{8BDD} 	d\u{1CE}di\u{E0}nhu\u{E0} 	call up
+\u{505A} 	zu\u{F2} 	do
+\u{4E70} 	m\u{1CE}i 	buy
+\u{5F00} 	k\u{101}i 	open
+\u{5750} 	zu\u{F2} 	sit
+\u{4F4F} 	zh\u{F9} 	live
+\u{5B66}\u{4E60} 	xu\u{E9}x\u{ED} 	study
+\u{5DE5}\u{4F5C} 	g\u{14D}ngzu\u{F2} 	work
+\u{4E0B}\u{96E8} 	xi\u{E0}y\u{1D4} 	rain
+\u{7231} 	\u{E0}i 	love
+\u{559C}\u{6B22} 	x\u{1D0}hu\u{101}n 	love, like
+\u{60F3} 	xi\u{1CE}ng 	want
+\u{8BA4}\u{8BC6} 	r\u{E8}nshi 	know
+\u{4F1A} 	hu\u{EC} 	can
+\u{80FD} 	n\u{E9}ng 	can, be able to
+\u{597D} 	h\u{1CE}o 	good
+\u{5927} 	d\u{E0} 	big
+\u{5C0F} 	xi\u{1CE}o 	small
+\u{591A} 	du\u{14D} 	many, much
+\u{5C11} 	sh\u{1CE}o 	few, little
+\u{51B7} 	l\u{11B}ng 	cold
+\u{70ED} 	r\u{E8} 	hot
+\u{9AD8}\u{5174} 	g\u{101}ox\u{EC}ng 	happy
+\u{6F02}\u{4EAE} 	pi\u{E0}oli\u{E0}ng 	beautiful
+      `.trim()
+  const wordList2 = wordList.split('\n').map((line) => line.split('\t'))
+  let index = 0
+  let f = () => {
+      document.getElementById('character').innerHTML = wordList2[index][0]
+                  document.getElementById('pinyin').innerHTML = wordList2[index][1]
+            document.getElementById('translation').innerHTML = wordList2[index][2]
+                  document.getElementById('pinyin').style.visibility = 'hidden'
+                  document.getElementById('translation').style.visibility = 'hidden'
+        setTimeout(() => {
+            document.getElementById('pinyin').style.removeProperty('visibility')
+            document.getElementById('translation').style.removeProperty('visibility')
+            if (index < wordList2.length) {
+                index += 1
+                setTimeout(f, 1000)
+            }
+        }, 1000)
+
+  }
+  f()
+">
+ <div id="card">
+     <div id="character"></div>
+     <div id="pinyin"></div>
+     <div id="translation"></div>
+ </div>
+</body>
+</html>
