@@ -14,10 +14,10 @@
         gap: calc(var(--size) / 100);
     }
     #character {
-        font-size: calc(var(--size) / 5);
+        font-size: calc(var(--size) / 8);
     }
     #pinyin, #translation {
-        font-size: calc(var(--size) / 10);
+        font-size: calc(var(--size) / 16);
     }
 </style>
 <head>
@@ -183,8 +183,10 @@ Verb
 \u{6F02}\u{4EAE} 	pi\u{E0}oli\u{E0}ng 	beautiful
       `.trim()
   const wordList2 = wordList.split('\n').map((line) => line.split('\t'))
-  let index = 0
+
+  let index;
   let f = () => {
+      index = Math.floor(Math.random() * wordList2.length)
       document.getElementById('character').innerHTML = wordList2[index][0]
                   document.getElementById('pinyin').innerHTML = wordList2[index][1]
             document.getElementById('translation').innerHTML = wordList2[index][2]
@@ -193,10 +195,8 @@ Verb
         setTimeout(() => {
             document.getElementById('pinyin').style.removeProperty('visibility')
             document.getElementById('translation').style.removeProperty('visibility')
-            if (index < wordList2.length) {
-                index += 1
-                setTimeout(f, 1000)
-            }
+            index = Math.floor(Math.random() * wordList2.length)
+            setTimeout(f, 1000)
         }, 1000)
 
   }
