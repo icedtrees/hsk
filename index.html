@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
+    :root {
+        --size: min(80vw, 80vh);
+    }
     #card {
-        margin: 100px; border-color: black; border-style: solid; border-width: 2px; width: 300px; height: 300px; display: flex; align-items: center; justify-content: center;
+        margin: min(10vw, 10vh);
+        border-color: black; border-style: solid; border-width: 2px;
+        width: var(--size);
+        height: var(--size);
+        display: flex; align-items: center; justify-content: center;
         flex-direction: column;
-        gap: 5px;
+        gap: calc(var(--size) / 100);
     }
     #character {
-        font-size: 50px;
+        font-size: calc(var(--size) / 5);
     }
     #pinyin, #translation {
-       font-size: 20px;
+        font-size: calc(var(--size) / 10);
     }
 </style>
 <head>
