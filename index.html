@@ -25,7 +25,7 @@
     <title>Title</title>
 </head>
 <body onload="
-  const wordList = `
+  const hskText1 = `
       \u{6211} 	w\u{1D2} 	I, me
       \u{6211}\u{4EEC} 	w\u{1D2}men 	we, us (pl.)
       \u{4F60} 	n\u{1D0} 	you
@@ -71,7 +71,6 @@
 \u{5417} 	ma
 \u{5462} 	ne
 \u{5582} 	w\u{E8}i 	hello
-Noun
 \u{5BB6} 	ji\u{101} 	home
 \u{5B66}\u{6821} 	xu\u{E9}xi\u{E0}o 	school
 \u{996D}\u{5E97} 	f\u{E0}ndi\u{E0}n 	restaurant
@@ -182,22 +181,332 @@ Verb
 \u{9AD8}\u{5174} 	g\u{101}ox\u{EC}ng 	happy
 \u{6F02}\u{4EAE} 	pi\u{E0}oli\u{E0}ng 	beautiful
       `.trim()
-  const wordList2 = wordList.split('\n').map((line) => line.split('\t'))
+  const hskText2 = `
+\u{6211} 	w\u{1D2} 	I, me
+\u{6211}\u{4EEC} 	w\u{1D2}men 	we, us \u{FF08}pl.\u{FF09}
+\u{4F60} 	n\u{1D0} 	you
+\u{4F60}\u{4EEC} 	n\u{1D0}men 	you (pl.)
+\u{4ED6} 	t\u{101} 	he, him
+\u{5979} 	t\u{101} 	she, her
+\u{4ED6}\u{4EEC} 	t\u{101}men 	they (male+female / male\u{FF0C}pl.)
+\u{5979}\u{4EEC} 	t\u{101}men 	they (females, pl.)
+\u{8FD9} (\u{8FD9}\u{513F}) 	zh\u{E8} ( zh\u{E8}r) 	here, this
+\u{90A3} (\u{90A3}\u{513F}) 	n\u{E0} (n\u{E0}r) 	there, that
+\u{54EA}\u{FF08}\u{54EA}\u{513F}\u{FF09} 	n\u{1CE} (n\u{1CE}r) 	where
+\u{8C01} 	sh\u{E9}i 	who
+\u{4EC0}\u{4E48} 	sh\u{E9}nme 	what, why
+\u{591A}\u{5C11} 	du\u{14D}sh\u{1CE}o 	how many, how much
+\u{51E0} 	j\u{1D0} 	a few, how many
+\u{600E}\u{4E48} 	z\u{11B}nme 	how
+\u{600E}\u{4E48}\u{6837} 	z\u{11B}nmey\u{E0}ng 	how about
+\u{60A8} 	n\u{ED}n 	you
+\u{5B83} 	t\u{101} 	it
+\u{5927}\u{5BB6} 	d\u{E0}ji\u{101} 	everyone
+\u{6BCF} 	m\u{11B}i 	every
+\u{4E3A}\u{4EC0}\u{4E48} 	w\u{E8}ish\u{E9}nme 	why
+\u{4E00} 	y\u{12B} 	one
+\u{4E8C} 	\u{E8}r 	two
+\u{4E09} 	s\u{101}n 	three
+\u{56DB} 	s\u{EC} 	four
+\u{4E94} 	w\u{1D4} 	five
+\u{516D} 	li\u{F9} 	six
+\u{4E03} 	q\u{12B} 	seven
+\u{516B} 	b\u{101} 	eight
+\u{4E5D} 	ji\u{1D4} 	nine
+\u{5341} 	sh\u{ED} 	ten
+\u{96F6} 	l\u{ED}ng 	zero
+\u{4E24} 	li\u{1CE}ng 	two
+\u{767E} 	b\u{1CE}i 	hundred
+\u{5343} 	qi\u{101}n 	thousand
+\u{7B2C}\u{4E00} 	d\u{EC}y\u{12B} 	first
+\u{4E2A} 	g\u{E8} 	one, a, an
+\u{5C81} 	su\u{EC} 	year
+\u{672C} 	b\u{11B}n 	volume
+\u{4E9B} 	xi\u{113} 	some
+\u{5757} 	ku\u{E0}i 	piece
+\u{6B21} 	c\u{EC} 	number
+\u{516C}\u{65A4} 	g\u{14D}ngj\u{12B}n 	kilogram
+\u{5143} 	yu\u{E1}n 	yuan
+\u{4EF6} 	ji\u{E0}n 	piece
+\u{5F20} 	zh\u{101}ng 	sheet
+\u{4E0D} 	b\u{F9} 	no
+\u{6CA1} 	m\u{E9}i 	no
+\u{5F88} 	h\u{11B}n 	quite, very
+\u{592A} 	t\u{E0}i 	too
+\u{90FD} 	d\u{14D}u 	all
+\u{522B} 	bi\u{E9} 	other
+\u{975E}\u{5E38} 	f\u{113}ich\u{E1}ng 	very
+\u{4E5F} 	y\u{11B} 	likewise
+\u{8FD8} 	h\u{E1}i 	repay
+\u{6700} 	zu\u{EC} 	most
+\u{771F} 	zh\u{113}n 	real
+\u{6B63}\u{5728} 	zh\u{E8}ngz\u{E0}i 	be being
+\u{5DF2}\u{7ECF} 	y\u{1D0}j\u{12B}ng 	already
+\u{4E00}\u{8D77} 	y\u{EC}q\u{1D0} 	together
+\u{518D} 	z\u{E0}i 	again
+\u{5C31} 	ji\u{1DC} 	at once
+\u{548C} 	h\u{E9} 	and
+\u{56E0}\u{4E3A} 	y\u{12B}nw\u{E8}i 	because
+\u{6240}\u{4EE5} 	su\u{1D2}y\u{1D0} 	so
+\u{4F46}\u{662F} 	d\u{E0}nsh\u{EC} 	but
+\u{5728} 	z\u{E0}i 	in, at
+\u{4ECE} 	c\u{F3}ng 	from
+\u{5BF9} 	du\u{EC} 	right
+\u{6B64} 	c\u{1D0} 	this
+\u{5411} 	xi\u{E0}ng 	towards
+\u{79BB} 	l\u{ED} 	leave
+\u{7684} 	de
+\u{4E86} 	le
+\u{5417} 	ma
+\u{5462} 	ne
+\u{5F97} 	de
+\u{7740} 	zhe
+\u{8FC7} 	guo
+\u{5427} 	ba
+\u{5582} 	w\u{E8}i 	hello
+\u{5BB6} 	ji\u{101} 	home
+\u{5B66}\u{6821} 	xu\u{E9}xi\u{E0}o 	school
+\u{996D}\u{9986} 	f\u{E0}n gu\u{1CE}n 	restaurant
+\u{5546}\u{5E97} 	sh\u{101}ngdi\u{E0}n 	store
+\u{533B}\u{9662} 	y\u{12B}yu\u{E0}n 	hospital
+\u{706B}\u{8F66}\u{7AD9} 	hu\u{1D2}ch\u{113}zh\u{E0}n 	train station
+\u{4E2D}\u{56FD} 	zh\u{14D}nggu\u{F3} 	China
+\u{673A}\u{573A} 	j\u{12B}ch\u{1CE}ng 	airport
+\u{6559}\u{5BA4} 	ji\u{E0}osh\u{EC} 	classroom
+\u{623F}\u{95F4} 	f\u{E1}ngji\u{101}n 	room
+\u{8DEF} 	l\u{F9} 	road
+\u{5317}\u{4EAC} 	b\u{11B}ij\u{12B}ng 	Beijing
+\u{4E0A} 	sh\u{E0}ng 	up
+\u{4E0B} 	xi\u{E0} 	below
+\u{524D}\u{9762} 	qi\u{E1}nmi\u{E0}n 	front
+\u{540E}\u{9762} 	h\u{F2}umi\u{E0}n 	behind
+\u{5DE6}\u{8FB9} 	zu\u{1D2}bi\u{101}n 	left
+\u{53F3}\u{8FB9} 	y\u{F2}ubi\u{101}n 	right
+\u{5916} 	w\u{E0}i 	out
+\u{65C1}\u{8FB9} 	p\u{E1}ngbi\u{101}n 	side
+\u{91CC}\u{9762} 	l\u{1D0}mi\u{E0}n 	inside
+\u{4ECA}\u{5929} 	j\u{12B}nti\u{101}n 	today
+\u{660E}\u{5929} 	m\u{ED}ngti\u{101}n 	tomorrow
+\u{6628}\u{5929} 	zu\u{F3}ti\u{101}n 	yesterday
+\u{4E0A}\u{5348} 	sh\u{E0}ngw\u{1D4} 	morning
+\u{4E2D}\u{5348} 	zh\u{14D}ngw\u{1D4} 	noon
+\u{4E0B}\u{5348} 	xi\u{E0}w\u{1D4} 	afternoon
+\u{5E74} 	ni\u{E1}n 	year
+\u{6708} 	yu\u{E8} 	month
+\u{65E5} 	r\u{EC} 	day
+\u{661F}\u{671F} 	x\u{12B}ngq\u{12B} 	week
+\u{70B9} 	di\u{1CE}n 	dot, spot
+\u{5206}\u{949F} 	f\u{113}nzh\u{14D}ng 	minute
+\u{73B0}\u{5728} 	xi\u{E0}nz\u{E0}i 	now
+\u{65F6}\u{5019} 	sh\u{ED}h\u{F3}u 	time
+\u{65E9}\u{4E0A} 	z\u{1CE}osh\u{E0}ng 	morning
+\u{665A}\u{4E0A} 	w\u{1CE}nsh\u{E0}ng 	night
+\u{5C0F}\u{65F6} 	xi\u{1CE}osh\u{ED} 	hour
+\u{65F6}\u{95F4} 	sh\u{ED}ji\u{101}n 	time
+\u{53BB}\u{5E74} 	q\u{F9}ni\u{E1}n 	last year
+\u{53F7} 	h\u{E0}o 	number
+\u{751F}\u{65E5} 	sh\u{113}ngr\u{EC} 	birthday
+\u{7238}\u{7238} 	b\u{E0}ba 	father
+\u{5988}\u{5988} 	m\u{101}ma 	mother
+\u{513F}\u{5B50} 	\u{E9}rzi 	son
+\u{5973}\u{513F} 	n\u{1DA}\u{E9}r 	daughter
+\u{8001}\u{5E08} 	l\u{1CE}osh\u{12B} 	teacher
+\u{5B66}\u{751F} 	xu\u{E9}sh\u{113}ng 	student
+\u{540C}\u{5B66} 	t\u{F3}ngxu\u{E9} 	shoolmate
+\u{670B}\u{53CB} 	p\u{E9}ngy\u{1D2}u 	friend
+\u{533B}\u{751F} 	y\u{12B}sh\u{113}ng 	doctor
+\u{5148}\u{751F} 	xi\u{101}nsh\u{113}ng 	sir
+\u{5C0F}\u{59D0} 	xi\u{1CE}oji\u{11B} 	Miss
+\u{54E5}\u{54E5} 	g\u{113}ge 	brother
+\u{59D0}\u{59D0} 	ji\u{11B}jie 	sister
+\u{5F1F}\u{5F1F} 	d\u{EC}di 	younger brother
+\u{59B9}\u{59B9} 	m\u{E8}imei 	sis
+\u{4E08}\u{592B} 	zh\u{E0}ngfu 	husband
+\u{59BB}\u{5B50} 	q\u{12B}zi 	wife
+\u{5B69}\u{5B50} 	h\u{E1}izi 	child
+\u{7537}\u{4EBA} 	n\u{E1}nr\u{E9}n 	man
+\u{5973}\u{4EBA} 	n\u{1DA}r\u{E9}n 	woman
+\u{670D}\u{52A1}\u{5458} 	f\u{FA}w\u{F9}yu\u{E1}n 	waiter
+\u{8863}\u{670D} 	y\u{12B}fu 	cloth
+\u{6C34} 	shu\u{1D0} 	water
+\u{83DC} 	c\u{E0}i 	vegetable
+\u{7C73}\u{996D} 	m\u{1D0}f\u{E0}n 	rice
+\u{6C34}\u{679C} 	shu\u{1D0}gu\u{1D2} 	fruit
+\u{82F9}\u{679C} 	p\u{ED}nggu\u{1D2} 	apple
+\u{8336} 	ch\u{E1} 	tea
+\u{676F}\u{5B50} 	b\u{113}izi 	cup
+\u{94B1} 	qi\u{E1}n 	money
+\u{98DE}\u{673A} 	f\u{113}ij\u{12B} 	airplane
+\u{51FA}\u{79DF}\u{8F66} 	ch\u{16B}z\u{16B}ch\u{113} 	taxi
+\u{7535}\u{89C6} 	di\u{E0}nsh\u{EC} 	television
+\u{7535}\u{8111} 	di\u{E0}nn\u{1CE}o 	computer
+\u{7535}\u{5F71} 	di\u{E0}ny\u{1D0}ng 	movie
+\u{5929}\u{6C14} 	ti\u{101}nq\u{EC} 	weather
+\u{732B} 	m\u{101}o 	cat
+\u{72D7} 	g\u{1D2}u 	dog
+\u{4E1C}\u{897F} 	d\u{14D}ngx\u{12B} 	thing
+\u{9C7C} 	y\u{FA} 	fish
+\u{7F8A}\u{8089} 	y\u{E1}ngr\u{F2}u 	mutton
+\u{725B}\u{5976} 	ni\u{FA}n\u{1CE}i 	milk
+\u{9E21}\u{86CB} 	j\u{12B}d\u{E0}n 	egg
+\u{897F}\u{74DC} 	x\u{12B}gu\u{101} 	watermelon
+\u{5496}\u{5561} 	k\u{101}f\u{113}i 	coffee
+\u{81EA}\u{884C}\u{8F66} 	z\u{EC}x\u{ED}ngch\u{113} 	bike
+\u{8239} 	chu\u{E1}n 	boat
+\u{96EA} 	xu\u{E9} 	snow
+\u{836F} 	y\u{E0}o 	medicine
+\u{624B}\u{673A} 	sh\u{1D2}uj\u{12B} 	phone
+\u{624B}\u{8868} 	sh\u{1D2}ubi\u{1CE}o 	watch
+\u{773C}\u{775B} 	y\u{1CE}nj\u{12B}ng 	eye
+\u{8EAB}\u{4F53} 	sh\u{113}nt\u{1D0} 	body
+\u{516C}\u{5171}\u{6C7D}\u{8F66} 	g\u{14D}ngg\u{F2}ngq\u{EC}ch\u{113} 	bus
+\u{62A5}\u{7EB8} 	b\u{E0}ozh\u{1D0} 	newspaper
+\u{4EBA} 	r\u{E9}n 	person
+\u{540D}\u{5B57} 	m\u{ED}ngzi 	name
+\u{4E66} 	sh\u{16B} 	book
+\u{6C49}\u{8BED} 	h\u{E0}ny\u{1D4} 	Chinese
+\u{5B57} 	z\u{EC} 	character
+\u{684C}\u{5B50} 	zhu\u{14D}\u{14D}zi 	desk
+\u{6905}\u{5B50} 	y\u{1D0}zi 	chair
+\u{95E8} 	m\u{E9}n 	door
+\u{9898} 	t\u{ED} 	topic
+\u{8BFE} 	k\u{E8} 	lesson
+\u{59D3} 	x\u{EC}ng 	surname
+\u{95EE}\u{9898} 	w\u{E8}nt\u{ED} 	question
+\u{4E8B}\u{60C5} 	sh\u{EC}qing 	matter
+\u{8003}\u{8BD5} 	k\u{1CE}osh\u{EC} 	exam
+\u{7968} 	pi\u{E0}o 	ticket
+\u{610F}\u{601D} 	y\u{EC}si 	meaning
+\u{989C}\u{8272} 	y\u{E1}ns\u{E8} 	color
+\u{8C22}\u{8C22} 	xi\u{E8}xi\u{E8} 	thank
+\u{4E0D}\u{5BA2}\u{6C14} 	b\u{FA}k\u{E8}q\u{EC} 	you are welcome
+\u{518D}\u{89C1} 	z\u{E0}iji\u{E0}n 	good-bye
+\u{8BF7} 	q\u{1D0}ng 	please
+\u{5BF9}\u{4E0D}\u{8D77} 	du\u{EC}b\u{F9}q\u{1D0} 	sorry
+\u{6CA1}\u{5173}\u{7CFB} 	m\u{E9}igu\u{101}nx\u{EC} 	It doesn\u{2019}t matter
+\u{6B22}\u{8FCE} 	hu\u{101}ny\u{ED}ng 	welcome
+\u{662F} 	sh\u{EC} 	am, is, are
+\u{6709} 	y\u{1D2}u 	have
+\u{770B} 	k\u{E0}n 	look
+\u{542C} 	t\u{12B}ng 	listen
+\u{8BF4}\u{8BDD} 	shu\u{14D}hu\u{E0} 	speak
+\u{8BFB} 	d\u{FA} 	read
+\u{5199} 	xi\u{11B} 	write
+\u{770B}\u{89C1} 	k\u{E0}nji\u{E0}n 	see
+\u{53EB} 	ji\u{E0}o 	call
+\u{6765} 	l\u{E1}i 	come
+\u{56DE} 	hu\u{ED} 	return
+\u{53BB} 	q\u{F9} 	go
+\u{5403} 	ch\u{12B} 	eat
+\u{559D} 	h\u{113} 	drink
+\u{7761}\u{89C9} 	shu\u{EC}ji\u{E0}o 	sleep
+\u{6253}\u{7535}\u{8BDD} 	d\u{1CE}di\u{E0}nhu\u{E0} 	call up
+\u{505A} 	zu\u{F2} 	do
+\u{4E70} 	m\u{1CE}i 	buy
+\u{5F00} 	k\u{101}i 	open
+\u{5750} 	zu\u{F2} 	sit
+\u{4F4F} 	zh\u{F9} 	live
+\u{5B66}\u{4E60} 	xu\u{E9}x\u{ED} 	study
+\u{5DE5}\u{4F5C} 	g\u{14D}ngzu\u{F2} 	work
+\u{4E0B}\u{96E8} 	xi\u{E0}y\u{1D4} 	rain
+\u{95EE} 	w\u{E8}n 	ask
+\u{8D70} 	z\u{1D2}u 	walk
+\u{8FDB} 	j\u{EC}n 	enter
+\u{51FA} 	ch\u{16B} 	come
+\u{8DD1}\u{6B65} 	p\u{1CE}ob\u{F9} 	run
+\u{5230} 	d\u{E0}o 	arrive
+\u{7A7F} 	chu\u{101}n 	wear
+\u{6D17} 	x\u{1D0} 	wash
+\u{7ED9} 	g\u{11B}i 	give
+\u{627E} 	zh\u{1CE}o 	find
+\u{61C2} 	d\u{1D2}ng 	understand
+\u{7B11} 	xi\u{E0}o 	smile
+\u{56DE}\u{7B54} 	hu\u{ED}d\u{E1} 	answer
+\u{544A}\u{8BC9} 	g\u{E0}os\u{F9} 	tell
+\u{51C6}\u{5907} 	zh\u{1D4}nb\u{E8}i 	prepare
+\u{5F00}\u{59CB} 	k\u{101}ish\u{1D0} 	begin
+\u{4ECB}\u{7ECD} 	ji\u{E8}sh\u{E0}o 	introduce
+\u{5E2E}\u{52A9} 	b\u{101}ngzh\u{F9} 	help
+\u{73A9} 	w\u{E1}n 	play
+\u{9001} 	s\u{F2}ng 	present
+\u{7B49} 	d\u{11B}ng 	wait
+\u{8BA9} 	r\u{E0}ng 	let
+\u{8D77}\u{5E8A} 	q\u{1D0}chu\u{E1}ng 	get up
+\u{5531}\u{6B4C} 	ch\u{E0}ngg\u{113} 	sing
+\u{8DF3}\u{821E} 	ti\u{E0}ow\u{1D4} 	dance
+\u{65C5}\u{6E38} 	l\u{1DA}y\u{F3}u 	travel
+\u{4E0A}\u{73ED} 	sh\u{E0}ngb\u{101}n 	be on duty
+\u{751F}\u{75C5} 	sh\u{113}ngb\u{EC}ng 	fall ill
+\u{4F11}\u{606F} 	xi\u{16B}xi 	rest
+\u{8FD0}\u{52A8} 	y\u{F9}nd\u{F2}ng 	exercise
+\u{6E38}\u{6CF3} 	y\u{F3}uy\u{1D2}ng 	swim
+\u{8E22}\u{8DB3}\u{7403} 	t\u{12B}z\u{FA}qi\u{FA} 	play footbal
+\u{6253}\u{7BEE}\u{7403} 	d\u{1CE}l\u{E1}nqi\u{FA} 	play basketball
+\u{5B8C} 	w\u{E1}n 	finish
+\u{7231} 	\u{E0}i 	love
+\u{559C}\u{6B22} 	x\u{1D0}hu\u{101}n 	love, like
+\u{60F3} 	xi\u{1CE}ng 	want
+\u{8BA4}\u{8BC6} 	r\u{E8}nshi 	know
+\u{89C9}\u{5F97} 	ju\u{E9}d\u{E9} 	think
+\u{77E5}\u{9053} 	zh\u{12B}d\u{E0}o 	know
+\u{5E0C}\u{671B} 	x\u{12B}w\u{E0}ng 	hope
+\u{4F1A} 	hu\u{EC} 	can
+\u{80FD} 	n\u{E9}ng 	can, be able to
+\u{53EF}\u{4EE5} 	k\u{11B}y\u{1D0} 	can
+\u{8981} 	y\u{E0}o 	ask for
+\u{53EF}\u{80FD} 	k\u{11B}n\u{E9}ng 	may
+\u{597D} 	h\u{1CE}o 	good
+\u{5927} 	d\u{E0} 	big
+\u{5C0F} 	xi\u{1CE}o 	small
+\u{591A} 	du\u{14D} 	many, much
+\u{5C11} 	sh\u{1CE}o 	few, little
+\u{51B7} 	l\u{11B}ng 	cold
+\u{70ED} 	r\u{E8} 	hot
+\u{9AD8}\u{5174} 	g\u{101}ox\u{EC}ng 	happy
+\u{6F02}\u{4EAE} 	pi\u{E0}oli\u{E0}ng 	beautiful
+\u{9AD8} 	g\u{101}o 	tall
+\u{7EA2} 	h\u{F3}ng 	red
+\u{767D} 	b\u{E1}i 	white
+\u{9ED1} 	h\u{113}i 	black
+\u{5FD9} 	m\u{E1}ng 	busy
+\u{5FEB} 	ku\u{E0}i 	fast
+\u{6162} 	m\u{E0}n 	slow
+\u{8FDC} 	yu\u{1CE}n 	far
+\u{8FD1} 	j\u{EC}n 	close
+\u{597D}\u{5403} 	h\u{1CE}och\u{12B} 	delicioous
+\u{7D2F} 	l\u{E8}i 	tired
+\u{957F} 	ch\u{E1}ng 	long
+\u{65B0} 	x\u{12B}n 	new
+\u{8D35} 	gu\u{EC} 	expensive
+\u{4FBF}\u{5B9C} 	pi\u{E1}nyi 	cheap
+\u{6674} 	q\u{ED}ng 	fine
+\u{9634} 	y\u{12B}n 	cloudy
+\u{9519} 	cu\u{F2} 	wrong
+\u{5FEB}\u{4E50} 	ku\u{E0}il\u{E8} 	happy
+  `.trim()
+  const hsk1 = hskText1.split('\n').map((line) => line.split('\t'))
+  const hsk2 = hskText2.split('\n').map((line) => line.split('\t'))
 
   let index;
   let f = () => {
-      index = Math.floor(Math.random() * wordList2.length)
-      document.getElementById('character').innerHTML = wordList2[index][0]
-                  document.getElementById('pinyin').innerHTML = wordList2[index][1]
-            document.getElementById('translation').innerHTML = wordList2[index][2]
-                  document.getElementById('pinyin').style.visibility = 'hidden'
-                  document.getElementById('translation').style.visibility = 'hidden'
+      let wordList;
+      let time;
+      if (Math.random() > 0.5) {
+        wordList = hsk1
+      } else {
+        wordList = hsk2
+      }
+      const word = wordList[Math.floor(Math.random() * wordList.length)]
+      document.getElementById('character').innerHTML = word[0]
+            document.getElementById('pinyin').innerHTML = word[1]
+            document.getElementById('translation').innerHTML = word[2] ?? ''
+            document.getElementById('pinyin').style.visibility = 'hidden'
+            document.getElementById('translation').style.visibility = 'hidden'
         setTimeout(() => {
             document.getElementById('pinyin').style.removeProperty('visibility')
             document.getElementById('translation').style.removeProperty('visibility')
-            index = Math.floor(Math.random() * wordList2.length)
-            setTimeout(f, 1000)
-        }, 1000)
+            setTimeout(f, 1500)
+        }, 1500)
 
   }
   f()
