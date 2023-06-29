@@ -2,10 +2,10 @@
 <html lang="en">
 <style>
     :root {
-        --size: min(80vw, 80vh);
+        --size: min(70vw, 70vh);
     }
     #card {
-        margin: min(10vw, 10vh);
+        margin: calc(var(--size) / 10);
         border-color: black; border-style: solid; border-width: 2px;
         width: var(--size);
         height: var(--size);
@@ -19,13 +19,15 @@
     #pinyin, #translation {
         font-size: calc(var(--size) / 16);
     }
+    #button {
+        width: var(--size);
+        margin: 0 calc(var(--size) / 10);
+        height: calc(var(--size) / 10);
+    }
 </style>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body onload="
-  const hskText1 = `
+<script>
+    const hskText1 = `
       \u{6211} 	w\u{1D2} 	I, me
       \u{6211}\u{4EEC} 	w\u{1D2}men 	we, us (pl.)
       \u{4F60} 	n\u{1D0} 	you
@@ -181,7 +183,7 @@ Verb
 \u{9AD8}\u{5174} 	g\u{101}ox\u{EC}ng 	happy
 \u{6F02}\u{4EAE} 	pi\u{E0}oli\u{E0}ng 	beautiful
       `.trim()
-  const hskText2 = `
+    const hskText2 = `
 \u{6211} 	w\u{1D2} 	I, me
 \u{6211}\u{4EEC} 	w\u{1D2}men 	we, us \u{FF08}pl.\u{FF09}
 \u{4F60} 	n\u{1D0} 	you
@@ -484,37 +486,51 @@ Verb
 \u{9519} 	cu\u{F2} 	wrong
 \u{5FEB}\u{4E50} 	ku\u{E0}il\u{E8} 	happy
   `.trim()
-  const hsk1 = hskText1.split('\n').map((line) => line.split('\t'))
-  const hsk2 = hskText2.split('\n').map((line) => line.split('\t'))
+    const hsk1 = hskText1.split('\n').map((line) => line.split('\t'))
+    const hsk2 = hskText2.split('\n').map((line) => line.split('\t'))
+    const learnedWords = JSON.parse(localStorage.getItem('learnedWords') ?? '[]')
+    let wordList = (hsk1.concat(hsk2)).filter((i) => !learnedWords.includes(i[0]))
+    wordList = wordList.filter((s, i) => wordList.findIndex((j) => j[0] === s[0]) === i)
 
-  let index;
-  let f = () => {
-      let wordList;
-      let time;
-      if (Math.random() > 0.5) {
-        wordList = hsk1
-      } else {
-        wordList = hsk2
-      }
-      const word = wordList[Math.floor(Math.random() * wordList.length)]
-      document.getElementById('character').innerHTML = word[0]
-            document.getElementById('pinyin').innerHTML = word[1]
-            document.getElementById('translation').innerHTML = word[2] ?? ''
-            document.getElementById('pinyin').style.visibility = 'hidden'
-            document.getElementById('translation').style.visibility = 'hidden'
-        setTimeout(() => {
+    let index;
+    let word;
+    let timeout;
+    const f = () => {
+        let time;
+        word = wordList[Math.floor(Math.random() * wordList.length)]
+        document.getElementById('character').innerHTML = word[0]
+        document.getElementById('pinyin').innerHTML = word[1]
+        document.getElementById('translation').innerHTML = word[2] ?? ''
+        document.getElementById('pinyin').style.visibility = 'hidden'
+        document.getElementById('translation').style.visibility = 'hidden'
+        timeout = setTimeout(() => {
             document.getElementById('pinyin').style.removeProperty('visibility')
             document.getElementById('translation').style.removeProperty('visibility')
-            setTimeout(f, 1500)
+            timeout = setTimeout(f, 1500)
         }, 1500)
 
-  }
-  f()
-">
- <div id="card">
-     <div id="character"></div>
-     <div id="pinyin"></div>
-     <div id="translation"></div>
- </div>
+    }
+
+    const learnWord = () => {
+        learnedWords.push(word[0])
+        localStorage.setItem('learnedWords', JSON.stringify(learnedWords))
+        wordList = wordList.filter((i) => i[0] !== word[0])
+        clearTimeout(timeout)
+        f()
+    }
+
+</script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body onload="f()">
+<div id="card">
+    <div id="character"></div>
+    <div id="pinyin"></div>
+    <div id="translation"></div>
+</div>
+<div>
+    <button id="button" onclick="learnWord()">Do not show this word again</button>
+</div>
 </body>
 </html>
