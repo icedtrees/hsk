@@ -2,10 +2,11 @@
 <html lang="en">
 <style>
     :root {
-        --size: min(70vw, 70vh);
+        --size: min(70vw, 55vh);
+        --margin: calc(var(--size) / 5);
     }
     #card {
-        margin: calc(var(--size) / 10);
+        margin: var(--margin);
         border-color: black; border-style: solid; border-width: 2px;
         width: var(--size);
         height: var(--size);
@@ -14,15 +15,16 @@
         gap: calc(var(--size) / 100);
     }
     #character {
-        font-size: calc(var(--size) / 8);
+        font-size: calc(var(--size) / 6);
     }
     #pinyin, #translation {
-        font-size: calc(var(--size) / 16);
+        font-size: calc(var(--size) / 14);
     }
     #button {
         width: var(--size);
-        margin: 0 calc(var(--size) / 10);
-        height: calc(var(--size) / 10);
+        margin: 0 var(--margin);
+        height: calc(var(--size) / 5);
+        font-size: calc(var(--size) / 20);
     }
 </style>
 <head>
